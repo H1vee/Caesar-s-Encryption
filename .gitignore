@@ -51,3 +51,5 @@ Thumbs.db
 *.log
 *.tmp
 *.bak
+
+/cmake-build-debug
