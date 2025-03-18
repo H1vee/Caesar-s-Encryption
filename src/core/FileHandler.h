@@ -13,7 +13,6 @@ public:
     QString readFile(const QString& filePath);
     bool writeFile(const QString& filePath, const QString& content);
 
-    // Dialog methods
     QString openFileDialog();
     QString saveFileDialog();
 };
