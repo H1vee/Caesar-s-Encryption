@@ -15,7 +15,6 @@ QString AffineCipher::encrypt(const QString& plaintext, int keyA, int keyB) {
 
     for (const QChar& c : plaintext) {
         if (!ALPHABET.contains(c.toUpper())) {
-            // Preserve non-alphabetic characters
             result.append(c);
             continue;
         }
@@ -43,7 +42,6 @@ QString AffineCipher::decrypt(const QString& ciphertext, int keyA, int keyB) {
 
     for (const QChar& c : ciphertext) {
         if (!ALPHABET.contains(c.toUpper())) {
-            // Preserve non-alphabetic characters
             result.append(c);
             continue;
         }
