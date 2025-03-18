@@ -427,29 +427,6 @@ ApplicationWindow {
                 }
             }
         }
-
-        
-        Rectangle {
-            Layout.fillWidth: true
-            height: 24
-            color: "#EEEEEE"
-            radius: 3
-
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: 4
-                spacing: 10
-
-                Label {
-                    text: "Статус: Готовий"
-                    font.pixelSize: 12
-                    color: "#666666"
-                }
-
-                Item { Layout.fillWidth: true } 
-
-            }
-        }
     }
 
     
