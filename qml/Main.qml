@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
+import QtQuick.Dialogs
 
 ApplicationWindow {
     id: root
@@ -13,14 +14,35 @@ ApplicationWindow {
     title: "Афінний шифр Цезаря"
     color: "#f9f9f9"
 
-    // Custom properties
+    
     property color primaryColor: "#3F51B5"
     property color accentColor: "#FF4081"
     property color textColor: "#424242"
     property color backgroundColor: "#FFFFFF"
     property color borderColor: "#E0E0E0"
 
-    // Custom button style
+
+    FileDialog {
+        id: openFileDialog
+        title: "Відкрити файл"
+        nameFilters: ["Text files (*.txt)", "All files (*)"]
+        onAccepted: {
+            
+            affineCipher.processOpenFile(selectedFile)
+        }
+    }
+    FileDialog {
+        id: saveFileDialog
+        title: "Зберегти файл"
+        nameFilters: ["Text files (*.txt)", "All files (*)"]
+        fileMode: FileDialog.SaveFile
+        onAccepted: {
+            
+            affineCipher.processSaveFile(selectedFile, resultText.text)
+        }
+    }
+
+   
     Component {
         id: buttonStyle
         Button {
@@ -44,13 +66,13 @@ ApplicationWindow {
         }
     }
 
-    // Content
+    
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 20
         spacing: 20
 
-        // Header - without shadow effect for compatibility
+        
         Rectangle {
             Layout.fillWidth: true
             height: 60
@@ -61,7 +83,7 @@ ApplicationWindow {
                 anchors.fill: parent
                 anchors.margins: 10
 
-                Item { width: 32 } // Placeholder for icon
+                Item { width: 32 } 
 
                 Label {
                     Layout.fillWidth: true
@@ -74,7 +96,7 @@ ApplicationWindow {
             }
         }
 
-        // Main content area - without shadow effect
+        
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -109,6 +131,7 @@ ApplicationWindow {
 
                         TextArea {
                             id: inputText
+                            text: affineCipher.inputText
                             placeholderText: "Введіть текст для шифрування/дешифрування"
                             wrapMode: TextEdit.Wrap
                             selectByMouse: true
@@ -125,7 +148,7 @@ ApplicationWindow {
                     }
                 }
 
-                // Parameters section
+                
                 Rectangle {
                     Layout.fillWidth: true
                     height: 80
@@ -214,17 +237,17 @@ ApplicationWindow {
                                 }
                             }
 
-                            Item { Layout.fillWidth: true } // Spacer
+                            Item { Layout.fillWidth: true } 
                         }
                     }
                 }
 
-                // Action buttons
+                
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: 15
 
-                    // File operations
+                    
                     Button {
                         Layout.preferredHeight: 36
                         property color property: "#607D8B"
@@ -247,7 +270,7 @@ ApplicationWindow {
                             verticalAlignment: Text.AlignVCenter
                         }
 
-                        onClicked: affineCipher.openFile()
+                        onClicked: openFileDialog.open()
                     }
 
                     Button {
@@ -272,12 +295,12 @@ ApplicationWindow {
                             verticalAlignment: Text.AlignVCenter
                         }
 
-                        onClicked: affineCipher.saveEncryptedFile()
+                        onClicked: saveFileDialog.open()
                     }
 
                     Item { Layout.fillWidth: true } // Spacer
 
-                    // Cipher operations
+                    
                     Button {
                         Layout.preferredHeight: 36
                         property color property: root.primaryColor
@@ -343,7 +366,7 @@ ApplicationWindow {
                     }
                 }
 
-                // Result section
+                
                 ColumnLayout {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
@@ -359,7 +382,7 @@ ApplicationWindow {
                             color: root.textColor
                         }
 
-                        Item { Layout.fillWidth: true } // Spacer
+                        Item { Layout.fillWidth: true } 
 
                         Button {
                             text: "Копіювати"
@@ -404,37 +427,9 @@ ApplicationWindow {
                 }
             }
         }
-
-        // Status bar
-        Rectangle {
-            Layout.fillWidth: true
-            height: 24
-            color: "#EEEEEE"
-            radius: 3
-
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: 4
-                spacing: 10
-
-                Label {
-                    text: "Статус: Готовий"
-                    font.pixelSize: 12
-                    color: "#666666"
-                }
-
-                Item { Layout.fillWidth: true } // Spacer
-
-                Label {
-                    text: "© 2025 Афінний шифр"
-                    font.pixelSize: 12
-                    color: "#666666"
-                }
-            }
-        }
     }
 
-    // Dialog for messages
+    
     Dialog {
         id: messageDialog
         title: "Повідомлення"
