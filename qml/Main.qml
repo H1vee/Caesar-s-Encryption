@@ -31,6 +31,16 @@ ApplicationWindow {
             affineCipher.processOpenFile(selectedFile)
         }
     }
+    FileDialog {
+        id: saveFileDialog
+        title: "Зберегти файл"
+        nameFilters: ["Text files (*.txt)", "All files (*)"]
+        fileMode: FileDialog.SaveFile
+        onAccepted: {
+            // Pass both the file URL and the content to save
+            affineCipher.processSaveFile(selectedFile, resultText.text)
+        }
+    }
 
     // Custom button style
     Component {
@@ -285,7 +295,7 @@ ApplicationWindow {
                             verticalAlignment: Text.AlignVCenter
                         }
 
-                        onClicked: affineCipher.saveEncryptedFile()
+                        onClicked: saveFileDialog.open()
                     }
 
                     Item { Layout.fillWidth: true } // Spacer

@@ -34,24 +34,18 @@ void ApplicationController::processOpenFile(const QUrl& fileUrl) {
     setInputText(content);  // Assuming you have this method
 }
 
-bool ApplicationController::saveEncryptedFile() {
-    if (m_currentText.isEmpty()) {
-        return false;
+void ApplicationController::processSaveFile(const QUrl& fileUrl,const QString& textToSave) {
+    // Convert QUrl to local file path
+    const QString filePath = fileUrl.toLocalFile();
+
+    // Write the file
+    QFile file(filePath);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        // Handle error
+        return;
     }
 
-    QString filePath = m_fileHandler.saveFileDialog();
-    if (filePath.isEmpty()) {
-        return false; // User canceled
-    }
-
-    return m_fileHandler.writeFile(filePath, m_currentText);
-}
-
-bool ApplicationController::setCurrentText(const QString& text) {
-    m_currentText = text;
-    return true;
-}
-
-QString ApplicationController::getCurrentText() {
-    return m_currentText;
+    QTextStream out(&file);
+    out << textToSave;  // Write the passed text to the file
+    file.close();
 }

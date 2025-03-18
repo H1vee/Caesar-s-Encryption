@@ -23,18 +23,14 @@ public:
     Q_INVOKABLE QString encrypt(const QString& plaintext, int keyA, int keyB);
     Q_INVOKABLE QString decrypt(const QString& ciphertext, int keyA, int keyB);
     Q_INVOKABLE void processOpenFile(const QUrl& fileUrl);
-    Q_INVOKABLE bool saveEncryptedFile();
-    Q_INVOKABLE bool setCurrentText(const QString& text);
-    Q_INVOKABLE QString getCurrentText();
 
 private:
     QString m_inputText;
     AffineCipher m_cipher;
-    FileHandler m_fileHandler;
-    QString m_currentText;
-    QString m_currentFilePath;
 
-    signals:
+public slots:
+    void processSaveFile(const QUrl& fileUrl,const QString& textToSave);
+signals:
     void inputTextChanged();
 };
 
