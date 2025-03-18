@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
+import QtQuick.Dialogs
 
 ApplicationWindow {
     id: root
@@ -19,6 +20,17 @@ ApplicationWindow {
     property color textColor: "#424242"
     property color backgroundColor: "#FFFFFF"
     property color borderColor: "#E0E0E0"
+
+
+    FileDialog {
+        id: openFileDialog
+        title: "Відкрити файл"
+        nameFilters: ["Text files (*.txt)", "All files (*)"]
+        onAccepted: {
+            // Call your backend with the selected file URL
+            affineCipher.processOpenFile(selectedFile)
+        }
+    }
 
     // Custom button style
     Component {
@@ -109,6 +121,7 @@ ApplicationWindow {
 
                         TextArea {
                             id: inputText
+                            text: affineCipher.inputText
                             placeholderText: "Введіть текст для шифрування/дешифрування"
                             wrapMode: TextEdit.Wrap
                             selectByMouse: true
@@ -247,7 +260,7 @@ ApplicationWindow {
                             verticalAlignment: Text.AlignVCenter
                         }
 
-                        onClicked: affineCipher.openFile()
+                        onClicked: openFileDialog.open()
                     }
 
                     Button {
