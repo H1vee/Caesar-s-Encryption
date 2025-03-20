@@ -9,7 +9,7 @@ find_package(Qt6 REQUIRED COMPONENTS Quick Widgets)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
-# Define your sources
+
 set(SOURCES
         src/main.cpp
         src/core/AffineCipher.cpp
@@ -23,7 +23,7 @@ set(HEADERS
         src/controllers/ApplicationController.h
 )
 
-# Add the executable with all your sources
+# Add the executable with all sources
 qt_add_executable(appCaesarsEncryption
         ${SOURCES}
         ${HEADERS}
